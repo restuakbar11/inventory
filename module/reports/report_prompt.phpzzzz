@@ -1,0 +1,112 @@
+<?php
+session_start();
+$kode_laporan = $_GET['kode'];
+/*
+Prompt dipisahkan sesuai dengan kkode laporan
+masing2 kode laporan memiliki form input yang berda-beda
+*/
+?>
+<head>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery/jquery.js"></script>
+</head>
+<div class="row clearfix">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="card">
+		<?php if($kode_laporan == 'RC-INV-002'){ ?>
+            <div class="header">
+                <h2>
+                    <?php echo $kode_laporan ?> - LAPORAN STOK OPNAME
+                </h2>
+				<hr>
+				<form action="_blank" method="post">
+                    <input type="hidden" name="userid" id="userid" value="<?php echo $username ?>">       
+					<input type="hidden" name="kode_laporan" id="kode_laporan" value="<?php echo $kode_laporan ?>">
+					<div class="form-group form-float">
+                    <h2 class="card-inside-title">Departemen</h2>
+                            <div class="form-line">
+                            <select class="form-control" name="id_department" id="id_department">
+							<option value="0">--Pilih Department--</option>
+                                <?php
+                            include 'functions/department/queryGetDepartment.php';
+                            while ($u =mysqli_fetch_array($queryGetDepartment)) { ?>
+                                <option style="align:center;" value="<?php echo $u['ID_DEPARTMENT'] ;?>" ><?php echo $u['NAMA_DEPARTMENT'] ;?></option>
+                            <?php
+                            } ?>
+                            </select>
+                               
+                               
+                        </div>
+                       <!--  <div class="help-info">Ex: A0001</div> -->
+                    </div>
+
+                    <div class="form-group form-float">
+                    <h2 class="card-inside-title">Lokasi Penyimpanan</h2>
+                            <div id = "gudang">
+							</div>
+							<div class="form-line" >
+                            <select class="form-control" name="id_gudang" id="id_gudang">
+                                <option value="0">--Pilih Lokasi--</option>
+								<option style="align:center;" value="ALL" >ALL</option>
+                                <?php
+                            include 'functions/gudang/queryGetGudang.php';
+
+                            while ($kulkas =mysqli_fetch_array($queryGetGudang)) { ?>
+                                <option style="align:center;" value="<?php echo $kulkas['ID_GUDANG'] ;?>" ><?php echo $kulkas['NAMAGUDANG'] ;?></option>
+								
+                            <?php
+                            } ?>
+                            </select>
+                            </div>
+                    </div> 
+					
+					  <a class="btn btn-primary waves-effect" id="smpn_header" type="button" href="module/laporan_rekap/c_stockopname.php"><i class="material-icons">forward</i>Buat Laporan</a> 
+                
+					
+				</form>
+            </div>
+			<?php }
+            elseif ($kode_laporan == 'RC-INV-001') { ?>
+                            <div class="header">
+                <h2>
+                    <?php echo $kode_laporan ?> - LAPORAN IN OUT
+                </h2>
+                <hr>
+                <form action="_blank" method="post">
+                    <input type="hidden" name="userid" id="userid" value="<?php echo $username ?>">       
+                    <input type="hidden" name="kode_laporan" id="kode_laporan" value="<?php echo $kode_laporan ?>">
+                    <div class="form-group form-float">
+                            <div class="form-line">
+                           
+                               
+                               
+                        </div>
+                       <!--  <div class="help-info">Ex: A0001</div> -->
+                    </div>
+
+                    <div class="form-group form-float">
+                            <div id = "gudang">
+                            </div>
+                            <div class="form-line" >
+                           
+                            </div>
+                    </div> 
+                    
+                      <a class="btn btn-primary waves-effect" id="smpn_header" type="button" href="module/laporan_rekap/c_in_out.php"><i class="material-icons">forward</i>Buat Laporan</a> 
+                
+                    
+                </form>
+            </div>
+            <?php }
+            else {
+			echo "Prompt Belum Ada";
+			}?>
+            <div class="body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
